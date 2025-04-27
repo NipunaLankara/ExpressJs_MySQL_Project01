@@ -1,6 +1,16 @@
 import express from "express"
+import userRouter from "./src/route/user.mjs";
 
 const server = express();
+
+server.use(express.json());
+
+const apiRouter = express.Router();
+
+apiRouter.use("/user",userRouter);
+
+server.use("/api/v1",apiRouter);
+
 
 
 const PORT = process.env.PORT || 4000;
