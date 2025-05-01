@@ -1,6 +1,7 @@
 import express from "express"
 import userRouter from "./src/route/user.mjs";
 import carRouter from "./src/route/car.mjs";
+import bookingRouter from "./src/route/booking.mjs";
 
 const server = express();
 
@@ -10,6 +11,7 @@ const apiRouter = express.Router();
 
 apiRouter.use("/user",userRouter);
 apiRouter.use("/car",carRouter);
+apiRouter.use("/booking",bookingRouter);
 
 server.use("/api/v1",apiRouter);
 

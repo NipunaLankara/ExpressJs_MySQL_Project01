@@ -55,6 +55,7 @@ userRouter.post("/user-login", loginValidation,handleValidationErrors, async (re
             return res.status(401).json({ msg: "Invalid credentials" });
         }
         const payload = {
+            userId:user.Id,
             userName : userName
         }
         const jwtToken = createToken(payload);

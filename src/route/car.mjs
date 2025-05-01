@@ -92,21 +92,6 @@ carRouter.get("/get-car-by-id", verifyToken, async (req, res) => {
     }
 });
 
-// DELETE /delete-car-by-id?id=...
-carRouter.delete("/delete-car-by-id", verifyToken, async (req, res) => {
-    const id = parseInt(req.query.id);
-    if (isNaN(id)) {
-        return res.status(400).json({ msg: "Invalid car ID" });
-    }
-
-    try {
-        await DB.car.delete({ where: { Id: id } });
-        return res.status(200).json({ msg: "Car deleted successfully" });
-    } catch (err) {
-        return res.status(500).json({ msg: "Failed to delete car", err: err.message });
-    }
-});
-
 //  PUT /update-car-by-id?id=...  + req.body = new car data
 carRouter.put("/update-car-by-id", verifyToken, async (req, res) => {
     const id = parseInt(req.query.id);
@@ -130,5 +115,23 @@ carRouter.put("/update-car-by-id", verifyToken, async (req, res) => {
         return res.status(500).json({ msg: "Failed to update car", err: err.message });
     }
 });
+
+
+// DELETE /delete-car-by-id?id=...
+carRouter.delete("/delete-car-by-id", verifyToken, async (req, res) => {
+    const id = parseInt(req.query.id);
+    if (isNaN(id)) {
+        return res.status(400).json({ msg: "Invalid car ID" });
+    }
+
+    try {
+        await DB.car.delete({ where: { Id: id } });
+        return res.status(200).json({ msg: "Car deleted successfully" });
+    } catch (err) {
+        return res.status(500).json({ msg: "Failed to delete car", err: err.message });
+    }
+});
+
+
 
 export default carRouter;
