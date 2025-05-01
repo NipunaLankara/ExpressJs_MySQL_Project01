@@ -18,7 +18,8 @@ const handleValidationErrors = (req, res, next) => {
 
 };
 
-// POST  One to One...
+// One to One..............
+// POST
 carRouter.post("/add-new-car",verifyToken,validateAddNewCar,handleValidationErrors,async (req,res)=>{
     const carData = req.body;
     const carNumber = req.body.CarNumber;
@@ -34,5 +35,45 @@ carRouter.post("/add-new-car",verifyToken,validateAddNewCar,handleValidationErro
 
 });
 
+// GET
+
+carRouter.get("/get-all-cars",verifyToken,async (req,res)=>{
+    try {
+        const carData = await DB.car.findMany();
+        return res.status(200).json({
+            msg:"All Cars List",
+            data:carData
+        });
+
+    }catch (err){
+        console.log(err);
+        return res.status(500).json({msg:"Something Wrong" , err:err});
+    }
+
+});
+
+carRouter.get("/get-all-cars-with-user",verifyToken ,async (req, res) => {
+    try {
+        const carData = await DB.car.findMany({
+            include: {
+                User: {
+                    select: {
+                        Id: true,
+                        UserName: true
+                    }
+                }
+            }
+        });
+
+        return res.status(200).json({
+            msg: "All Cars List with User ID and Username",
+            data: carData
+        });
+
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ msg: "Something went wrong", err: err.message });
+    }
+});
 
 export default carRouter;
