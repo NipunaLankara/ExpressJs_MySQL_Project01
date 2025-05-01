@@ -29,7 +29,7 @@ carRouter.post("/add-new-car",verifyToken,validateAddNewCar,handleValidationErro
 
     }catch (err){
        return  res.status(500).json({msg: "Car Create Failed", err: err});
-       return  res.status(500).json({msg: "Car Create Failed", err: err});
+
     }
 
 });
